@@ -9,6 +9,7 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
           url: tab.url,
           title: tab.title,
           savedAt: new Date().toISOString(),
+          favIconUrl: tab.favIconUrl,
         };
         savePage(newPage, sendResponse);
       } else {

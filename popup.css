@@ -1,55 +1,114 @@
+/* General body styling */
 body {
-  font-family: sans-serif;
-  width: 200px;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    sans-serif;
+  width: 250px;
   text-align: center;
-  padding: 10px;
+  padding: 16px 12px; /* Slightly less horizontal padding */
+  margin: 0;
 }
 
-button {
+/* Header styling */
+.header {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+h3 {
+  margin: 0;
+  font-size: 18px;
+}
+
+button#saveButton {
+  /* Renamed to be more specific */
   width: 100%;
   padding: 10px;
   border: none;
   background-color: #007bff;
   color: white;
-  border-radius: 4px;
+  border-radius: 5px;
   cursor: pointer;
   font-size: 14px;
+  font-weight: 500;
+  margin: 0;
 }
 
-button:hover {
+button#saveButton:hover {
   background-color: #0056b3;
 }
 
-p {
+p#statusMessage {
   font-size: 12px;
-  margin-top: 10px;
+  margin: 0;
   height: 15px;
 }
 
-/* Add these new styles to your existing popup.css */
-li {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 8px 4px;
-  border-bottom: 1px solid #f0f0f0;
+hr {
+  border: none;
+  border-top: 1px solid #eee;
+  margin: 16px 0;
 }
 
+/* List styling */
+ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  max-height: 220px;
+  overflow-y: auto;
+  text-align: left;
+}
+
+li {
+  display: flex;
+  align-items: center; /* Vertically align items */
+  padding: 8px 0; /* Padding on top/bottom only */
+  border-bottom: 1px solid #f0f0f0;
+  font-size: 14px; /* Slightly larger font for readability */
+}
+
+li:last-child {
+  border-bottom: none;
+}
+
+.favicon {
+  width: 16px;
+  height: 16px;
+  margin-right: 8px;
+  flex-shrink: 0; /* Prevent icon from shrinking */
+}
+
+/* KEY CHANGE: Give the link all available space */
 li a {
+  color: #222; /* Darker text for better contrast */
+  text-decoration: none;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  flex-grow: 1;
-  margin-right: 10px;
+  flex-grow: 1; /* This is crucial: it takes all leftover space */
 }
 
+li a:hover {
+  color: #007bff;
+  text-decoration: underline;
+}
+
+/* KEY CHANGE: Make the delete button a compact, fixed-size square */
 .delete-btn {
+  flex-shrink: 0; /* Prevent button from shrinking */
+  width: 24px;
+  height: 24px;
+  margin-left: 8px; /* Space between link and button */
+  display: flex;
+  align-items: center;
+  justify-content: center;
   background: none;
   border: none;
   color: #aaa;
   cursor: pointer;
   font-size: 16px;
-  padding: 0 5px;
+  padding: 0;
   border-radius: 4px;
 }
 

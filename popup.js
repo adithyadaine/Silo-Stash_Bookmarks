@@ -23,6 +23,13 @@ document.addEventListener("DOMContentLoaded", () => {
 
       stashedPages.forEach((page) => {
         const listItem = document.createElement("li");
+
+        // NEW: Create the favicon image
+        const favicon = document.createElement("img");
+        favicon.className = "favicon";
+        // Use the saved URL, or our fallback if it's missing
+        favicon.src = page.favIconUrl || "icons/default-favicon.svg";
+
         const link = document.createElement("a");
         link.href = page.url;
         link.textContent = page.title;
@@ -46,7 +53,7 @@ document.addEventListener("DOMContentLoaded", () => {
             }
           );
         });
-
+        listItem.appendChild(favicon);
         listItem.appendChild(link);
         listItem.appendChild(deleteButton);
         linksList.appendChild(listItem);
