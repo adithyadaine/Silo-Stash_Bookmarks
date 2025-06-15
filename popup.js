@@ -1,33 +1,31 @@
-// This is our canary. If we don't see this, the script isn't running.
-console.log("Popup script started!");
-
 document.addEventListener("DOMContentLoaded", () => {
-  console.log("DOM content loaded. Finding elements.");
-
   const saveButton = document.getElementById("saveButton");
   const statusMessage = document.getElementById("statusMessage");
   const linksList = document.getElementById("stashedLinksList");
+  const searchInput = document.getElementById("searchInput"); // Get the search input
 
-  // Function to display the saved links
-  function displayStashedLinks() {
+  // Function to display links, now with an optional filter
+  function displayStashedLinks(filter = "") {
     linksList.innerHTML = ""; // Clear the list
 
     chrome.storage.sync.get({ stashedPages: [] }, (data) => {
-      const stashedPages = data.stashedPages;
-      console.log("Found stashed pages:", stashedPages);
+      const searchTerm = filter.toLowerCase();
 
-      if (stashedPages.length === 0) {
-        linksList.innerHTML = "<li>No pages stashed yet.</li>";
+      // Filter pages based on the search term before displaying
+      const filteredPages = data.stashedPages.filter((page) =>
+        page.title.toLowerCase().includes(searchTerm),
+      );
+
+      if (filteredPages.length === 0) {
+        linksList.innerHTML = "<li>No matching pages found.</li>";
         return;
       }
 
-      stashedPages.forEach((page) => {
+      filteredPages.forEach((page) => {
+        // This part is the same as before
         const listItem = document.createElement("li");
-
-        // NEW: Create the favicon image
         const favicon = document.createElement("img");
         favicon.className = "favicon";
-        // Use the saved URL, or our fallback if it's missing
         favicon.src = page.favIconUrl || "icons/default-favicon.svg";
 
         const link = document.createElement("a");
@@ -35,24 +33,22 @@ document.addEventListener("DOMContentLoaded", () => {
         link.textContent = page.title;
         link.target = "_blank";
 
-        // NEW: Create the delete button
         const deleteButton = document.createElement("button");
-        deleteButton.textContent = "✕"; // A simple 'X' character
+        deleteButton.textContent = "X";
         deleteButton.className = "delete-btn";
         deleteButton.title = "Delete this item";
 
-        // NEW: Add click listener to the delete button
         deleteButton.addEventListener("click", () => {
           chrome.runtime.sendMessage(
             { action: "deletePage", url: page.url },
             (response) => {
               if (response && response.status === "success") {
-                // Refresh the list to show the item is gone
-                displayStashedLinks();
+                displayStashedLinks(searchInput.value); // Re-filter with current search
               }
-            }
+            },
           );
         });
+
         listItem.appendChild(favicon);
         listItem.appendChild(link);
         listItem.appendChild(deleteButton);
@@ -63,19 +59,20 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Save button functionality
   saveButton.addEventListener("click", () => {
-    console.log("Save button clicked.");
     chrome.runtime.sendMessage({ action: "savePage" }, (response) => {
       if (response && response.status === "success") {
         statusMessage.textContent = "Page saved!";
-        displayStashedLinks();
+        displayStashedLinks(searchInput.value); // Refresh list with filter
         setTimeout(() => (statusMessage.textContent = ""), 2000);
-      } else {
-        statusMessage.textContent = "Error saving page.";
-        console.error("Error response from background:", response);
       }
     });
   });
 
-  // Initial display of links when popup opens
+  // NEW: Event listener for the search input
+  searchInput.addEventListener("input", () => {
+    displayStashedLinks(searchInput.value);
+  });
+
+  // Initial display of all links when popup opens
   displayStashedLinks();
 });

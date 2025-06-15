@@ -15,6 +15,17 @@ body {
   gap: 12px;
 }
 
+/* Add this new style to your existing popup.css */
+#searchInput {
+  width: 100%;
+  padding: 8px;
+  margin-top: 12px; /* Space above the search bar */
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  font-size: 14px;
+  box-sizing: border-box; /* Prevents padding from breaking layout */
+}
+
 h3 {
   margin: 0;
   font-size: 18px;
