@@ -28,7 +28,27 @@ document.addEventListener("DOMContentLoaded", () => {
         link.textContent = page.title;
         link.target = "_blank";
 
+        // NEW: Create the delete button
+        const deleteButton = document.createElement("button");
+        deleteButton.textContent = "✕"; // A simple 'X' character
+        deleteButton.className = "delete-btn";
+        deleteButton.title = "Delete this item";
+
+        // NEW: Add click listener to the delete button
+        deleteButton.addEventListener("click", () => {
+          chrome.runtime.sendMessage(
+            { action: "deletePage", url: page.url },
+            (response) => {
+              if (response && response.status === "success") {
+                // Refresh the list to show the item is gone
+                displayStashedLinks();
+              }
+            }
+          );
+        });
+
         listItem.appendChild(link);
+        listItem.appendChild(deleteButton);
         linksList.appendChild(listItem);
       });
     });

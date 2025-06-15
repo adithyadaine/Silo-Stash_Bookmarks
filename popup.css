@@ -25,3 +25,35 @@ p {
   margin-top: 10px;
   height: 15px;
 }
+
+/* Add these new styles to your existing popup.css */
+li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 4px;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+li a {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  flex-grow: 1;
+  margin-right: 10px;
+}
+
+.delete-btn {
+  background: none;
+  border: none;
+  color: #aaa;
+  cursor: pointer;
+  font-size: 16px;
+  padding: 0 5px;
+  border-radius: 4px;
+}
+
+.delete-btn:hover {
+  color: #fff;
+  background-color: #e63946;
+}
