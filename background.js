@@ -1,40 +1,30 @@
 // Listen for messages from the popup
+// In background.js
 chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
   if (request.action === "savePage") {
-    // ... (your existing savePage code is here) ...
-    chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
-      const tab = tabs[0];
-      if (tab && tab.url) {
-        const newPage = {
-          url: tab.url,
-          title: tab.title,
-          savedAt: new Date().toISOString(),
-          favIconUrl: tab.favIconUrl,
-        };
-        savePage(newPage, sendResponse);
-      } else {
-        sendResponse({ status: "error", message: "No active tab found." });
-      }
-    });
+    // The 'page' object now comes directly from the popup
+    savePage(request.page, sendResponse);
     return true;
   } else if (request.action === "deletePage") {
-    // NEW: Handle the delete request
     deletePage(request.url, sendResponse);
-    return true; // Required for async response
+    return true;
   }
 });
 
 function savePage(page, sendResponse) {
-  // ... (this function remains unchanged) ...
   chrome.storage.sync.get({ stashedPages: [] }, (data) => {
     const stashedPages = data.stashedPages;
-    stashedPages.push(page);
+    // Add the new page object to the array
+    stashedPages.unshift(page); // unshift adds to the beginning
+
     chrome.storage.sync.set({ stashedPages }, () => {
-      console.log("Page stashed:", page);
+      console.log("Page saved with tags:", page);
       sendResponse({ status: "success" });
     });
   });
 }
+
+// ... deletePage function remains unchanged ...
 
 // NEW: Function to delete a page by its URL
 function deletePage(pageUrl, sendResponse) {

@@ -1,29 +1,16 @@
-/* General body styling */
 body {
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
     sans-serif;
-  width: 250px;
-  text-align: center;
-  padding: 16px 12px; /* Slightly less horizontal padding */
+  width: 280px;
+  padding: 12px;
   margin: 0;
 }
 
-/* Header styling */
 .header {
   display: flex;
   flex-direction: column;
   gap: 12px;
-}
-
-/* Add this new style to your existing popup.css */
-#searchInput {
-  width: 100%;
-  padding: 8px;
-  margin-top: 12px; /* Space above the search bar */
-  border: 1px solid #ddd;
-  border-radius: 5px;
-  font-size: 14px;
-  box-sizing: border-box; /* Prevents padding from breaking layout */
+  text-align: center;
 }
 
 h3 {
@@ -31,8 +18,7 @@ h3 {
   font-size: 18px;
 }
 
-button#saveButton {
-  /* Renamed to be more specific */
+#saveButton {
   width: 100%;
   padding: 10px;
   border: none;
@@ -42,41 +28,48 @@ button#saveButton {
   cursor: pointer;
   font-size: 14px;
   font-weight: 500;
-  margin: 0;
 }
 
-button#saveButton:hover {
+#saveButton:hover {
   background-color: #0056b3;
 }
 
 p#statusMessage {
   font-size: 12px;
-  margin: 0;
   height: 15px;
+  color: #007bff;
+}
+
+#searchInput {
+  width: 100%;
+  padding: 8px;
+  margin-top: 12px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  font-size: 14px;
+  box-sizing: border-box;
 }
 
 hr {
   border: none;
   border-top: 1px solid #eee;
-  margin: 16px 0;
+  margin: 12px 0;
 }
 
-/* List styling */
 ul {
   list-style: none;
   padding: 0;
   margin: 0;
-  max-height: 220px;
+  max-height: 250px;
   overflow-y: auto;
-  text-align: left;
 }
 
 li {
   display: flex;
-  align-items: center; /* Vertically align items */
-  padding: 8px 0; /* Padding on top/bottom only */
+  align-items: center;
+  padding: 8px 0;
   border-bottom: 1px solid #f0f0f0;
-  font-size: 14px; /* Slightly larger font for readability */
+  font-size: 14px;
 }
 
 li:last-child {
@@ -86,31 +79,54 @@ li:last-child {
 .favicon {
   width: 16px;
   height: 16px;
-  margin-right: 8px;
-  flex-shrink: 0; /* Prevent icon from shrinking */
+  flex-shrink: 0;
 }
 
-/* KEY CHANGE: Give the link all available space */
-li a {
-  color: #222; /* Darker text for better contrast */
+.link-data {
+  flex-grow: 1;
+  overflow: hidden;
+  margin: 0 8px;
+}
+
+.link-data a {
+  color: #222;
   text-decoration: none;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  flex-grow: 1; /* This is crucial: it takes all leftover space */
+  display: block;
 }
 
-li a:hover {
+.link-data a:hover {
   color: #007bff;
   text-decoration: underline;
 }
 
-/* KEY CHANGE: Make the delete button a compact, fixed-size square */
+.tags-container {
+  margin-top: 4px;
+  display: flex;
+  gap: 4px;
+  flex-wrap: wrap;
+}
+
+.tag-badge {
+  background-color: #eee;
+  color: #555;
+  border: none;
+  border-radius: 4px;
+  padding: 2px 6px;
+  font-size: 11px;
+  cursor: pointer;
+}
+
+.tag-badge:hover {
+  background-color: #ddd;
+}
+
 .delete-btn {
-  flex-shrink: 0; /* Prevent button from shrinking */
+  flex-shrink: 0;
   width: 24px;
   height: 24px;
-  margin-left: 8px; /* Space between link and button */
   display: flex;
   align-items: center;
   justify-content: center;
@@ -126,4 +142,26 @@ li a:hover {
 .delete-btn:hover {
   color: #fff;
   background-color: #e63946;
+}
+
+#filter-info {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-size: 12px;
+  padding: 4px 8px;
+  background-color: #eef;
+  border-radius: 12px;
+  margin: -4px auto 0;
+}
+
+#clear-filter-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 14px;
+  color: #555;
+  padding: 0;
+  line-height: 1;
 }

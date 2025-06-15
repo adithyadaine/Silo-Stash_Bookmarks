@@ -8,12 +8,19 @@
   <body>
     <div class="header">
       <h3>Silo</h3>
+      <!-- This bar appears when a tag is clicked -->
+      <div id="filter-info" style="display: none">
+        Filtering by: <strong id="active-filter-tag"></strong>
+        <button id="clear-filter-btn" title="Clear filter">✕</button>
+      </div>
       <button id="saveButton">Save Current Page</button>
       <p id="statusMessage"></p>
     </div>
+
     <input type="text" id="searchInput" placeholder="Filter by title..." />
     <hr />
     <ul id="stashedLinksList"></ul>
+
     <script src="popup.js"></script>
   </body>
 </html>
