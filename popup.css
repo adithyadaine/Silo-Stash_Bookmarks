@@ -1,79 +1,107 @@
+/* Define a modern color palette and theme variables */
+:root {
+  --bg-color: #f8f9fa;
+  --surface-color: #ffffff;
+  --primary-color: #007bff;
+  --primary-color-hover: #0056b3;
+  --danger-color: #e63946;
+  --text-primary: #212529;
+  --text-secondary: #6c757d;
+  --border-color: #e9ecef;
+  --shadow-color: rgba(0, 0, 0, 0.05);
+  --shadow-color-hover: rgba(0, 0, 0, 0.1);
+}
+
 body {
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
-    sans-serif;
-  width: 280px;
-  padding: 12px;
+    "Helvetica Neue", Arial, sans-serif;
+  width: 300px; /* A bit wider for the new design */
+  padding: 16px;
   margin: 0;
+  background-color: var(--bg-color);
+  color: var(--text-primary);
 }
 
 .header {
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  /* gap: 12px; */
   text-align: center;
+  margin-bottom: 16px;
 }
 
 h3 {
   margin: 0;
-  font-size: 18px;
+  font-size: 20px;
 }
 
 #saveButton {
   width: 100%;
   padding: 10px;
   border: none;
-  background-color: #007bff;
+  background-color: var(--primary-color);
   color: white;
-  border-radius: 5px;
+  border-radius: 8px; /* Softer corners */
   cursor: pointer;
   font-size: 14px;
-  font-weight: 500;
+  font-weight: 600;
+  transition: background-color 0.2s ease;
 }
 
 #saveButton:hover {
-  background-color: #0056b3;
+  background-color: var(--primary-color-hover);
 }
 
 p#statusMessage {
   font-size: 12px;
   height: 15px;
-  color: #007bff;
+  color: var(--primary-color);
 }
 
 #searchInput {
   width: 100%;
-  padding: 8px;
-  margin-top: 12px;
-  border: 1px solid #ddd;
-  border-radius: 5px;
+  padding: 10px;
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
   font-size: 14px;
   box-sizing: border-box;
+  background-color: var(--surface-color);
+}
+#searchInput:focus {
+  outline: none;
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.25);
 }
 
 hr {
-  border: none;
-  border-top: 1px solid #eee;
-  margin: 12px 0;
+  display: none; /* We don't need the line with card-based design */
 }
 
 ul {
   list-style: none;
   padding: 0;
-  margin: 0;
-  max-height: 250px;
+  margin: 16px 0 0;
+  max-height: 280px;
   overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 8px; /* Space between cards */
 }
 
 li {
   display: flex;
   align-items: center;
-  padding: 8px 0;
-  border-bottom: 1px solid #f0f0f0;
+  padding: 12px;
   font-size: 14px;
+  background-color: var(--surface-color);
+  border-radius: 8px;
+  box-shadow: 0 2px 4px var(--shadow-color);
+  transition: all 0.2s ease-in-out;
 }
 
-li:last-child {
-  border-bottom: none;
+li:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px var(--shadow-color-hover);
 }
 
 .favicon {
@@ -85,63 +113,64 @@ li:last-child {
 .link-data {
   flex-grow: 1;
   overflow: hidden;
-  margin: 0 8px;
+  margin: 0 10px;
 }
 
 .link-data a {
-  color: #222;
+  color: var(--text-primary);
+  font-weight: 500;
   text-decoration: none;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
   display: block;
 }
-
 .link-data a:hover {
-  color: #007bff;
+  color: var(--primary-color);
   text-decoration: underline;
 }
 
 .tags-container {
   margin-top: 4px;
   display: flex;
-  gap: 4px;
+  gap: 6px;
   flex-wrap: wrap;
 }
 
 .tag-badge {
-  background-color: #eee;
-  color: #555;
+  background-color: #e9ecef;
+  color: var(--text-secondary);
   border: none;
   border-radius: 4px;
-  padding: 2px 6px;
+  padding: 3px 8px;
   font-size: 11px;
+  font-weight: 500;
   cursor: pointer;
+  transition: background-color 0.2s ease;
 }
-
 .tag-badge:hover {
-  background-color: #ddd;
+  background-color: #dee2e6;
 }
 
 .delete-btn {
   flex-shrink: 0;
-  width: 24px;
-  height: 24px;
+  width: 28px;
+  height: 28px;
   display: flex;
   align-items: center;
   justify-content: center;
   background: none;
   border: none;
-  color: #aaa;
+  color: var(--text-secondary);
   cursor: pointer;
   font-size: 16px;
   padding: 0;
-  border-radius: 4px;
+  border-radius: 50%; /* Make it a circle */
+  transition: all 0.2s ease;
 }
-
 .delete-btn:hover {
   color: #fff;
-  background-color: #e63946;
+  background-color: var(--danger-color);
 }
 
 #filter-info {
@@ -150,8 +179,9 @@ li:last-child {
   justify-content: center;
   gap: 8px;
   font-size: 12px;
-  padding: 4px 8px;
-  background-color: #eef;
+  padding: 4px 10px;
+  background-color: #e7f1ff;
+  color: #0056b3;
   border-radius: 12px;
   margin: -4px auto 0;
 }
@@ -161,7 +191,7 @@ li:last-child {
   border: none;
   cursor: pointer;
   font-size: 14px;
-  color: #555;
+  color: #0056b3;
   padding: 0;
   line-height: 1;
 }
