@@ -5,10 +5,20 @@
   "description": "Don't let good ideas scatter.",
   "permissions": ["storage", "activeTab", "scripting"],
   "action": {
-    "default_popup": "popup.html"
+    "default_popup": "popup.html",
+    "default_icon": {
+      "16": "icons/silo16.png", 
+      "48": "icons/silo48.png",
+      "128": "icons/silo128.png"
+    }
   },
   "background": {
     "service_worker": "background.js"
+  },
+  "icons": {
+    "16": "icons/silo16.png",
+    "48": "icons/silo48.png",
+    "128": "icons/silo128.png"
   },
   "web_accessible_resources": [
     {
